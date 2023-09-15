@@ -1,0 +1,7 @@
+defaults:
+  - backbone: pretrained
+
+_target_: dyn_ddim.surrogate.MLPRegressionModule
+concat_state: false
+n_hidden: 256
+lr: 5E-5

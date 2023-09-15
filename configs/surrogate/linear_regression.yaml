@@ -1,0 +1,6 @@
+defaults:
+  - backbone: pretrained
+
+_target_: dyn_ddim.surrogate.LinearRegressionModule
+concat_state: false
+l2_reg: 1E-4

@@ -1,0 +1,28 @@
+defaults:
+  - trainer: default
+  - callbacks:
+      - model_checkpoint
+      - rich
+      - tqdm
+      - sample_lorenz63
+  - logger: wandb
+  - network: denoising_diffusion
+  - data: diffusion
+  - sampler: ddpm
+  - hydra: default
+  - _self_
+
+exp_name: ${now:%Y-%m-%d}_${now:%H-%M-%S}
+logging_level: DEBUG
+seed: 0
+batch_size: 16384
+learning_rate: 3E-4
+num_workers: 4
+
+trainer:
+  limit_val_batches: 16
+
+logger:
+  tags:
+    - diffusion
+    - train

@@ -1,0 +1,8 @@
+# @package _global_
+
+trainer:
+  accelerator: "mps"
+  devices: 1
+
+data:
+  pin_memory: false

@@ -1,0 +1,24 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: linear_regression
+  - override /surrogate/backbone: polynomial
+  - override /callbacks:
+      - model_checkpoint
+      - rich
+      - tqdm
+
+exp_name: polynomial
+
+surrogate:
+  backbone:
+    degree: 4
+
+data:
+  train_batch_size: 16384
+  val_batch_size: 16384
+
+trainer:
+  max_epochs: 1
+  check_val_every_n_epoch: 1
+  val_check_interval: null

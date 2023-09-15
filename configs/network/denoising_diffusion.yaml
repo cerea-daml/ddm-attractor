@@ -1,0 +1,7 @@
+defaults:
+  - network: dense_residual
+  - head: velocity
+  - scheduler: cosine
+
+_target_: dyn_ddim.denoising_diffusion.DenoisingDiffusionModule
+timesteps: 1000

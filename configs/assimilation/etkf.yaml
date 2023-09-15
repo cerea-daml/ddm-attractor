@@ -1,0 +1,2 @@
+_target_: dyn_ddim.assimilation.ETKFAssimilation
+inf_factor: 1.0

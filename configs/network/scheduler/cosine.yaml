@@ -1,0 +1,4 @@
+_target_: dyn_ddim.scheduler.CosineScheduler
+timesteps: 1000
+shift: 0.008
+max_beta: 0.9

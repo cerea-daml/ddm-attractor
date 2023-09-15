@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: mlp_regression
+  - override /surrogate/backbone: random_fourier
+
+exp_name: rff_mlp_256
+
+surrogate:
+  backbone:
+    n_neurons: 256

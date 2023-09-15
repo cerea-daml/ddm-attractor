@@ -1,0 +1,4 @@
+_target_: dyn_ddim.network.DenseNetwork
+n_time_embedding: 512
+n_hidden: 256
+n_layers: 3

@@ -1,0 +1,3 @@
+_target_: dyn_ddim.network.PolynomialNetwork
+n_time_embedding: 512
+degree: 3

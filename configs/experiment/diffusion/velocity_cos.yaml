@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - override /network/network: dense_residual
+  - override /network/scheduler: cosine
+  - override /network/head: velocity
+  - override /callbacks:
+      - model_checkpoint
+      - rich
+      - sample_lorenz63
+      - tqdm
+      - ema
+
+exp_name: velocity_cos

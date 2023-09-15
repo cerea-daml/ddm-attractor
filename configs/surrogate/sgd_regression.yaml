@@ -1,0 +1,6 @@
+defaults:
+  - backbone: pretrained
+
+_target_: dyn_ddim.surrogate.SGDRegressionModule
+concat_state: false
+lr: 5E-5

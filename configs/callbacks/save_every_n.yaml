@@ -1,0 +1,5 @@
+save_every_n:
+  _target_: dyn_ddim.callbacks.CheckpointEveryNSteps
+  save_step_frequency: int = 1
+  prefix: "N-Step-Checkpoint"
+  use_modelcheckpoint_filename: false

@@ -1,0 +1,18 @@
+# @package _global_
+
+defaults:
+  - override /assimilation: enoi_diag
+
+hydra:
+  mode: "MULTIRUN"
+  sweeper:
+    params:
+      +combined: "{std:0.1,factor: 10.},{std:0.2,factor:8.5},{std:0.5,factor:8.},{std:0.75,factor:7.5},{std:1.,factor:6.5},{std:2,factor:5.},{std:5,factor:2.8},{std:7.5,factor:2.3},{std:10,factor:1.95}"
+
+exp_name: enoi_diag_10_${combined.std}
+obs_every: 10
+obs_std: ${combined.std}
+
+assimilation:
+  sampler:
+    cov_inf: ${combined.factor}

@@ -1,0 +1,21 @@
+# @package _global_
+callbacks:
+  model_checkpoint:
+    dirpath: 'data/models/surrogate_repr/${diff_exp}/${diff_seed}'
+
+hydra:
+  mode: "MULTIRUN"
+  sweep:
+    dir: 'data/models/surrogate_repr'
+    subdir: '${diff_exp}/${diff_seed}'
+
+  sweeper:
+    params:
+      +diff_seed: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+      +diff_exp: state_cos, noise_cos, velocity_cos
+
+output_path: 'data/predictions/surrogate_repr/${diff_exp}/${diff_seed}.pt'
+
+surrogate:
+  backbone:
+    ckpt_path: 'data/models/diffusion/${diff_exp}/${diff_seed}/last.ckpt'

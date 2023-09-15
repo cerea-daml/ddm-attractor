@@ -1,0 +1,25 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: linear_regression
+  - override /callbacks:
+      - model_checkpoint
+      - rich
+      - tqdm
+
+exp_name: transfer_single_linear
+
+surrogate:
+  backbone:
+    ema: false
+    times_to_use:
+      - 400
+
+data:
+  train_batch_size: 16384
+  val_batch_size: 16384
+
+trainer:
+  max_epochs: 1
+  check_val_every_n_epoch: 1
+  val_check_interval: null

@@ -1,0 +1,4 @@
+_target_: dyn_ddim.layers.RandomFourierLayer
+in_features: 3
+n_neurons: 512
+wave_length: 1.

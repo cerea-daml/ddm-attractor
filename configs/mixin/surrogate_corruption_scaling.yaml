@@ -1,0 +1,18 @@
+# @package _global_
+
+
+callbacks:
+  model_checkpoint:
+    dirpath: 'data/models/corrupted_surrogate/${exp_name}/${data.corruption_level}'
+
+hydra:
+  mode: "MULTIRUN"
+  sweep:
+    dir: 'data/models/corrupted_surrogate'
+    subdir: '${exp_name}/${data.corruption_level}'
+
+  sweeper:
+    params:
+      data.corruption_level: 0.005, 0.01, 0.015, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0
+
+output_path: 'data/predictions/corrupted_surrogate/${exp_name}/${data.corruption_level}.pt'

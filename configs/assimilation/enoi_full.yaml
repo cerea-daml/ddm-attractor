@@ -1,0 +1,9 @@
+_target_: dyn_ddim.assimilation.EnOIAssimilation
+sampler:
+  _target_: dyn_ddim.assimilation.CovSampler
+  n_ens: 50
+  cov_inf: 1.
+  covariance:
+    - [0.520, 0.747, 0.000]
+    - [0.747, 1.378, 0.001]
+    - [0.000, 0.001, 1.177]

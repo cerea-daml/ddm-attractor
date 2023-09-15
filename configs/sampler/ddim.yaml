@@ -1,0 +1,4 @@
+_target_: dyn_ddim.sampler.DDIMSampler
+timesteps: 1000
+ddpm: false
+eta: 0.

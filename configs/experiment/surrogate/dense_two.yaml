@@ -1,0 +1,13 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: sgd_regression
+  - override /surrogate/backbone: dense
+
+exp_name: dense_two
+
+surrogate:
+  backbone:
+    hidden_neurons:
+      - 256
+      - 256

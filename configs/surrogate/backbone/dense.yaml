@@ -1,0 +1,4 @@
+_target_: dyn_ddim.surrogate.backbones.DenseBackbone
+hidden_neurons:
+  - 256
+  - 256

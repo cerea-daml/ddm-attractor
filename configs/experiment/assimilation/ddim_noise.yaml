@@ -1,0 +1,18 @@
+# @package _global_
+
+defaults:
+  - override /assimilation: enoi_ddim
+
+hydra:
+  mode: "MULTIRUN"
+  sweeper:
+    params:
+      +combined: "{std:0.1,steps:1},{std:0.2,steps:1},{std:0.5,steps:3},{std:0.75,steps:4},{std:1.,steps:6},{std:2,steps:12},{std:5,steps:30},{std:7.5,steps:47},{std:10,steps:62}"
+
+exp_name: ddim_10_${combined.std}
+obs_every: 10
+obs_std: ${combined.std}
+n_ens: 1
+assimilation:
+  sampler:
+    n_steps: ${combined.steps}

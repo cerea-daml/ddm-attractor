@@ -1,0 +1,3 @@
+_target_: dyn_ddim.layers.PolynomialLayer
+degree: 2
+bias: false

@@ -1,0 +1,4 @@
+EMA:
+  _target_: dyn_ddim.callbacks.EMA
+  decay: 0.999
+  use_ema_weights: true

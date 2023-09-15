@@ -1,0 +1,37 @@
+defaults:
+  - trainer: default
+  - logger: wandb
+  - callbacks: model_checkpoint
+  - network: denoising_diffusion
+  - data: diffusion
+  - sampler: ddpm
+  - hydra: default
+  - surrogate: sgd_regression
+  - override /surrogate/backbone: dense
+  - _self_
+
+exp_name: ${now:%Y-%m-%d}_${now:%H-%M-%S}
+logging_level: DEBUG
+seed: 0
+batch_size: 16384
+learning_rate: 3E-4
+num_workers: 4
+ema: false
+
+trainer:
+  limit_predict_batches: 64
+
+surrogate:
+  backbone:
+    hidden_neurons:
+      - 256
+      - 256
+
+ckpt_path: ???
+surrogate_ckpt: "data/models/surrogate/dense_two/0/last.ckpt"
+prediction_path: null
+
+logger:
+  tags:
+    - diffusion
+    - test

@@ -1,0 +1,6 @@
+# @package _global_
+
+defaults:
+  - override /logger: null
+
+num_workers: 1

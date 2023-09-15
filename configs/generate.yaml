@@ -1,0 +1,17 @@
+defaults:
+  - trainer: default
+  - callbacks: model_checkpoint
+  - network: denoising_diffusion
+  - data: diffusion
+  - sampler: ddpm
+  - hydra: default
+  - _self_
+
+logging_level: DEBUG
+seed: 0
+batch_size: 16384
+learning_rate: 3E-4
+num_workers: 4
+ema: false
+
+output_path: 'data/predictions/diffusion/${exp_name}.pt'

@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - override /assimilation: etkf
+
+exp_name: etkf_12
+n_ens: 12
+
+assimilation:
+  inf_factor: 1.07

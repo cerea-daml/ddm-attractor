@@ -1,0 +1,2 @@
+_target_: dyn_ddim.sampler.DDPMSampler
+timesteps: 1000

@@ -1,0 +1,32 @@
+defaults:
+  - trainer: default
+  - callbacks:
+      - model_checkpoint
+      - rich
+      - tqdm
+  - logger: null
+  - surrogate: linear_regression
+  - data: surrogate
+  - hydra: default
+  - _self_
+
+exp_name: ${now:%Y-%m-%d}_${now:%H-%M-%S}
+logging_level: DEBUG
+seed: 0
+num_workers: 1
+
+trainer:
+  limit_val_batches: 16
+
+callbacks:
+  model_checkpoint:
+    dirpath: 'data/models/surrogate/${exp_name}'
+
+hydra:
+  run:
+    dir: 'data/models/surrogate/${exp_name}'
+
+logger:
+  tags:
+    - surrogate
+    - train

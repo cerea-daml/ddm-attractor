@@ -1,0 +1,31 @@
+defaults:
+  - trainer: default
+  - callbacks: null
+  - logger: wandb
+  - surrogate: linear_regression
+  - hydra: default
+  - _self_
+
+exp_name: ${now:%Y-%m-%d}_${now:%H-%M-%S}
+logging_level: DEBUG
+seed: 0
+num_workers: 4
+delta_t: 10
+n_lead_time: 100
+batch_size: 16384
+device: "cuda"
+dataset_path: "data/raw/traj_test.pt"
+ckpt_path: "data/models/surrogate/${exp_name}/last.ckpt"
+
+
+hydra:
+  run:
+    dir: 'data/models/surrogate/${exp_name}'
+  sweep:
+    dir: data/models/surrogate
+    subdir: ${exp_name}/${hydra.job.num}
+
+logger:
+  tags:
+    - surrogate
+    - test

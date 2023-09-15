@@ -1,0 +1,5 @@
+sample_lorenz:
+  _target_: dyn_ddim.callbacks.sample_lorenz63.SampleLorenz63Callback
+  n_samples: 1024
+  reference_path: ${data.data_path}/traj_eval.pt
+  plot: false

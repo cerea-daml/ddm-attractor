@@ -1,0 +1,9 @@
+_target_: dyn_ddim.data_module.SurrogateDataModule
+data_path: 'data/raw'
+train_batch_size: 16384
+val_batch_size: 16384
+n_train_samples: null
+corruption_level: 0.0
+delta_t: 10
+num_workers: 4
+pin_memory: true

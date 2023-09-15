@@ -1,0 +1,11 @@
+_target_: dyn_ddim.assimilation.EnOIAssimilation
+sampler:
+  _recursive_: false
+  _target_: dyn_ddim.assimilation.DenoisingSampler
+  ckpt_path: "data/models/diffusion/velocity_cos/0/last.ckpt"
+  sampler:
+    _target_: dyn_ddim.sampler.DDPMSampler
+    timesteps: 100
+  n_steps: 10
+  device: "cuda"
+  n_ens: 50

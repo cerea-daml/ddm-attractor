@@ -1,0 +1,3 @@
+_target_: dyn_ddim.head_param.VelocityHead
+loss_func:
+  _target_: torch.nn.MSELoss

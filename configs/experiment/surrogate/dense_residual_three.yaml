@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: sgd_regression
+  - override /surrogate/backbone: dense_residual
+
+exp_name: residual_three
+
+surrogate:
+  backbone:
+    n_blocks: 3

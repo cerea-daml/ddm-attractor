@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - override /network/network: dense_residual
+  - override /network/scheduler: cosine
+  - override /network/head: noise
+  - override /callbacks:
+      - ema
+      - model_checkpoint
+      - rich
+      - sample_lorenz63
+      - tqdm
+
+exp_name: noise_cos

@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - override /assimilation: enoi_diag
+
+exp_name: enoi_diag
+n_ens: 1
+
+assimilation:
+  sampler:
+    cov_inf: 2.22

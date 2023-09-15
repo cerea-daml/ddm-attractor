@@ -1,0 +1,20 @@
+# @package _global_
+
+defaults:
+  - override /network/network: dense_residual
+  - override /network/scheduler: cosine
+  - override /network/head: velocity
+  - override /callbacks:
+      - ema
+      - model_checkpoint
+      - rich
+      - sample_lorenz63
+      - tqdm
+
+exp_name: velocity_cos_mae
+
+network:
+  head:
+    loss_func:
+      _target_: torch.nn.L1Loss
+

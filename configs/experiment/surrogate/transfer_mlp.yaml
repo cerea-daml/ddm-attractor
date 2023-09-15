@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - override /surrogate: mlp_regression
+
+exp_name: transfer_mlp
+
+surrogate:
+  backbone:
+    ema: false

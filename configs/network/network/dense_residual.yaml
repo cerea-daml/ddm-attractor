@@ -1,0 +1,6 @@
+_target_: dyn_ddim.network.DenseResidualNetwork
+n_inout: 3
+n_time_embedding: 512
+n_hidden: 256
+n_layers: 3
+mult: 1

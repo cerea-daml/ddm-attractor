@@ -1,0 +1,12 @@
+tune_l2:
+  _target_: dyn_ddim.callbacks.TuneL2Callback
+  lam_limits:
+    - 1E-6
+    - 1E4
+  n_trials: 100
+  timeout: null
+  sampler:
+    _target_: optuna.samplers.TPESampler
+    n_startup_trials: 10
+    seed: 42
+  study_name: '${exp_name}_sweep'

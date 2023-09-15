@@ -1,0 +1,5 @@
+_target_: dyn_ddim.data_module.GenerationDataModule
+data_path: 'data/raw'
+batch_size: ${batch_size}
+num_workers: ${num_workers}
+pin_memory: true

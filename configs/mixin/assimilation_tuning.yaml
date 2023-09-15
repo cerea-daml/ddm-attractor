@@ -1,0 +1,36 @@
+# @package _global_
+
+defaults:
+  - override /hydra/sweeper: optuna
+
+hydra:
+  mode: "MULTIRUN"
+  sweeper:
+    sampler:
+      _target_: optuna.samplers.TPESampler
+      seed: 42
+      consider_prior: false
+      prior_weight: 1.0
+      consider_magic_clip: false
+      consider_endpoints: true
+      n_startup_trials: 5
+      n_ei_candidates: 24
+      multivariate: false
+      warn_independent_sampling: false
+    _target_: hydra_plugins.hydra_optuna_sweeper.optuna_sweeper.OptunaSweeper
+    direction: minimize
+    storage: "sqlite:///assim_tuning.sqlite3"
+    study_name: ${exp_name}
+    n_trials: 100
+    n_jobs: 1
+
+
+dataset_path: "data/raw/traj_train.pt"
+n_burn_in: 1000
+n_cycles: 5000
+seed: 42
+
+logger:
+  tags:
+    - assimilation
+    - tuning

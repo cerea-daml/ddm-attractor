@@ -1,0 +1,9 @@
+# @package _global_
+defaults:
+  - override /hydra/launcher: joblib
+
+hydra:
+  launcher:
+    n_jobs: 8
+
+num_workers: 1

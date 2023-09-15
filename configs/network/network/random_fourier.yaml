@@ -1,0 +1,4 @@
+_target_: dyn_ddim.network.RandomFourierNetwork
+n_time_embedding: 512
+n_neurons: 256
+concat_time: true
