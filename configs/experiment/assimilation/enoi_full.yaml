@@ -9,3 +9,10 @@ n_ens: 1
 assimilation:
   sampler:
     cov_inf: 1.82
+
+logger:
+  tags:
+    - assimilation
+    - enoi
+    - full
+    - scores

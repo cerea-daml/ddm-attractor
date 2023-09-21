@@ -10,6 +10,11 @@ hydra:
       assimilation.sampler.n_steps: range(5, 101, 5)
 
 exp_name: ddim_${assimilation.sampler.n_steps}
-output_path: "data/predictions/assimilation_ddim/${exp_name}.pt"
 
 n_ens: 1
+
+logger:
+  tags:
+    - assimilation
+    - ddim
+    - spread

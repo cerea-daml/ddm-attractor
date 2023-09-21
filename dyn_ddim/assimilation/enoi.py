@@ -38,7 +38,7 @@ class EnOIAssimilation(ETKFAssimilation):
             self,
             in_tensor: torch.Tensor,
             in_obs: torch.Tensor
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         # Generate ensemble perturbations
         sampled_ens = self.sampler.sample(in_tensor)
 
@@ -56,4 +56,4 @@ class EnOIAssimilation(ETKFAssimilation):
         )
         out_ens = in_tensor + increment
         out_det = in_tensor + increment.mean(dim=-2, keepdims=True)
-        return out_det, out_ens
+        return out_det, sampled_ens, out_ens

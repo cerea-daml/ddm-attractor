@@ -7,10 +7,17 @@ hydra:
   mode: "MULTIRUN"
   sweeper:
     params:
-      +combined: "{dt:1,factor: 1.01},{dt:5,factor:1.02},{dt:10,factor:1.06},{dt:15,factor:1.15},{dt:20,factor:1.35},{dt:25,factor:1.85}"
+      +combined: "{dt:1,factor: 1.01},{dt:5,factor:1.02},{dt:10,factor:1.07},{dt:15,factor:1.15},{dt:20,factor:1.35},{dt:25,factor:1.85}"
 
 exp_name: etkf_${combined.dt}
 obs_every: ${combined.dt}
-n_ens: 10
+n_ens: 12
 assimilation:
   inf_factor: ${combined.factor}
+
+logger:
+  tags:
+    - assimilation
+    - etkf
+    - ens_12
+    - scaling

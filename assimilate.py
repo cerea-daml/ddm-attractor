@@ -100,7 +100,7 @@ def main_assimilate(cfg: DictConfig):
         curr_state = integrator.integrate(curr_state)
         if (burn_time % cfg.obs_every) == 0:
             # Assimilate
-            curr_state, curr_ens = assimilation.assimilate(
+            curr_state, _, curr_ens = assimilation.assimilate(
                 curr_state, obs[:, [burn_time]]
             )
             # Estimate statistics
@@ -142,10 +142,12 @@ def main_assimilate(cfg: DictConfig):
     # Estimate statistics
     total_steps = cfg.obs_every * cfg.n_cycles
     n_stat_steps = 0
-    mse = torch.zeros(cfg.obs_every+1, 3)
-    spread = torch.zeros(cfg.obs_every+1, 3)
+    mse = torch.zeros(curr_state.size(0), cfg.obs_every+1, 3)
+    spread = torch.zeros(curr_state.size(0), cfg.obs_every+1, 3)
     ana_mse = 0
     ana_spread = 0
+    bg_mse = 0
+    bg_spread = 0
     cov_ana = torch.zeros(3, 3)
     cov_bg = torch.zeros(3, 3)
     curr_traj = [curr_state.clone()]
@@ -164,12 +166,12 @@ def main_assimilate(cfg: DictConfig):
             # Update MSE and spread
             curr_mse = (
                     curr_traj.mean(dim=-2)-truth[:, t-cfg.obs_every:t+1]
-            ).pow(2).mean(dim=0)
+            ).pow(2)
             mse = mse * old_weight + curr_mse / n_stat_steps
 
             if cfg.n_ens > 1:
                 spread = spread * old_weight \
-                         + curr_traj.var(dim=-2).mean(dim=0) / n_stat_steps
+                         + curr_traj.var(dim=-2) / n_stat_steps
 
                 # Update bg cov
                 bg_mean = curr_traj[:, -1].mean(dim=-2, keepdims=True)
@@ -179,9 +181,15 @@ def main_assimilate(cfg: DictConfig):
                 cov_bg = cov_bg * old_weight + curr_cov / n_stat_steps
 
             # Assimilate
-            analysis, ana_ens = assimilation.assimilate(
+            analysis, bg_ens, ana_ens = assimilation.assimilate(
                 curr_traj[:, -1], obs[:, [t]]
             )
+
+            # Update background scores
+            curr_bg_mse = (bg_ens.mean(dim=-2)-truth[:, t]).pow(2).mean(dim=0)
+            bg_mse = bg_mse * old_weight + curr_bg_mse / n_stat_steps
+            curr_bg_spread = bg_ens.var(dim=-2).mean(dim=0)
+            bg_spread = bg_spread * old_weight + curr_bg_spread / n_stat_steps
 
             # Update analysis scores
             curr_ana_mse = (analysis.mean(dim=-2)-truth[:, t]).pow(2).mean(dim=0)
@@ -203,12 +211,16 @@ def main_assimilate(cfg: DictConfig):
             curr_nspread = (
                     curr_ana_spread/clim_scaling.pow(2)
             ).mean().sqrt().item()
+            bg_nrmse = (bg_mse/clim_scaling.pow(2)).mean().sqrt().item()
+            bg_nspread = (bg_spread/clim_scaling.pow(2)).mean().sqrt().item()
             ana_nrmse = (ana_mse/clim_scaling.pow(2)).mean().sqrt().item()
             ana_nspread = (ana_spread/clim_scaling.pow(2)).mean().sqrt().item()
 
             wandb.log({
                 "assim/curr_rmse": curr_nrmse,
                 "assim/curr_spread": curr_nspread,
+                "assim/bg_rmse": bg_nrmse,
+                "assim/bg_spread": bg_nspread,
                 "assim/ana_rmse": ana_nrmse,
                 "assim/ana_spread": ana_nspread,
             },)
@@ -220,24 +232,23 @@ def main_assimilate(cfg: DictConfig):
             )
 
     wandb.define_metric("lead_time")
-    wandb.define_metric("assim/mse*", step_metric="lead_time")
-    wandb.define_metric("assim/spread*", step_metric="lead_time")
-    all_scores = zip(mse, spread)
+    wandb.define_metric("assim/rmse_mean", step_metric="lead_time")
+    wandb.define_metric("assim/rmse_std", step_metric="lead_time")
+    wandb.define_metric("assim/spread_mean", step_metric="lead_time")
+    rmse = (mse / clim_scaling.pow(2)).mean(dim=-1).sqrt()
+    spread = (spread / clim_scaling.pow(2)).mean(dim=-1).sqrt()
+    rmse_mean = rmse.mean(dim=0)
+    rmse_std = rmse.std(dim=0)
+    spread_mean = spread.mean(dim=0)
+    all_scores = zip(rmse_mean, rmse_std, spread_mean)
     for ld, scores in enumerate(all_scores):
         score_dict = {
-            "assim/mse_norm": (scores[0]/clim_scaling.pow(2)).mean().sqrt(),
-            "assim/mse_x": scores[0][0],
-            "assim/mse_y": scores[0][1],
-            "assim/mse_z": scores[0][2],
-            "assim/spread_norm": (scores[1]/clim_scaling.pow(2)).mean().sqrt(),
-            "assim/spread_x": scores[1][0],
-            "assim/spread_y": scores[1][1],
-            "assim/spread_z": scores[1][2],
+            "assim/rmse_mean": scores[0],
+            "assim/rmse_std": scores[1],
+            "assim/spread_mean": scores[2],
             "lead_time": ld
         }
         wandb.log(score_dict)
-
-    wandb.log({"assim/ana_mse": ana_mse, "assim/ana_spread": ana_spread})
 
     wandb.run.summary["cov_bg"] = cov_bg
     wandb.run.summary["cov_ana"] = cov_ana

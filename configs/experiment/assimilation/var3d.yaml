@@ -10,3 +10,10 @@ n_ens: 1
 assimilation:
   sampler:
     cov_inf: 1.72
+
+
+logger:
+  tags:
+    - assimilation
+    - var3d
+    - scores

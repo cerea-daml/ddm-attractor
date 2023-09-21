@@ -11,3 +11,9 @@ assimilation:
     n_steps: 13
     sampler:
       timesteps: 100
+
+logger:
+  tags:
+    - assimilation
+    - ddim
+    - scores

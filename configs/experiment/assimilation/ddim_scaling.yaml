@@ -7,7 +7,7 @@ hydra:
   mode: "MULTIRUN"
   sweeper:
     params:
-      +combined: "{dt:1,steps:3},{dt:5,steps:7},{dt:10,steps:12},{dt:15,steps:17},{dt:20,steps:23},{dt:25,steps:31}"
+      +combined: "{dt:1,steps:3},{dt:5,steps:7},{dt:10,steps:13},{dt:15,steps:17},{dt:20,steps:23},{dt:25,steps:31}"
 
 exp_name: ddim_${combined.dt}
 obs_every: ${combined.dt}
@@ -15,3 +15,9 @@ n_ens: 1
 assimilation:
   sampler:
     n_steps: ${combined.steps}
+
+logger:
+  tags:
+    - assimilation
+    - ddim
+    - scaling

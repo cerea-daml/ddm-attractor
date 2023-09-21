@@ -1,0 +1,20 @@
+# @package _global_
+
+defaults:
+  - override /assimilation: enoi_ddim
+
+exp_name: ddim
+n_ens: 1
+
+assimilation:
+  sampler:
+    n_ens: 10
+    n_steps: 15
+    sampler:
+      timesteps: 100
+
+logger:
+  tags:
+    - assimilation
+    - ddim
+    - scores

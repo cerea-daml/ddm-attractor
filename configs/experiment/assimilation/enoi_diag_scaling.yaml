@@ -15,3 +15,10 @@ n_ens: 1
 assimilation:
   sampler:
     cov_inf: ${combined.factor}
+
+logger:
+  tags:
+    - assimilation
+    - enoi
+    - diag
+    - scaling

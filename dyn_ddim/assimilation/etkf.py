@@ -36,7 +36,7 @@ class ETKFAssimilation(object):
             self,
             in_tensor: torch.Tensor,
             in_obs: torch.Tensor
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         in_tensor_obs = self.obs_op(in_tensor)
 
         # Estimate weights
@@ -51,4 +51,4 @@ class ETKFAssimilation(object):
         out_ens = torch.einsum(
             "...nm,...nk->...mk", weights, ens_perts
         ) + ens_mean
-        return out_ens, out_ens
+        return out_ens, in_tensor, out_ens

@@ -8,3 +8,10 @@ n_ens: 12
 
 assimilation:
   inf_factor: 1.07
+
+logger:
+  tags:
+    - assimilation
+    - etkf
+    - ens_12
+    - scores
